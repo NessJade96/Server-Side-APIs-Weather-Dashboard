@@ -1,0 +1,98 @@
+/*
+CSS DIRECTORY
+	1. =JUMBOTRON  
+    2. =MAIN
+    3. =ASIDE
+    4. =SECTION - TODAYS FORECAST
+    5. =SECTION - FIVE DAY FORECAST
+*/
+
+/*  ===============
+    JUMBOTRON 
+    =============== */
+
+h1 {
+	background-image: linear-gradient(
+		to right,
+		rgb(9, 129, 173),
+		rgb(9, 44, 202)
+	);
+	color: white;
+	text-align: center;
+	padding: 1rem;
+	font-size: 2rem;
+}
+
+/*  ===============
+    MAIN 
+    =============== */
+main {
+	display: flex;
+}
+
+/*  ===============
+    ASIDE 
+    =============== */
+
+aside {
+	max-width: 30rem;
+	margin: 0.5rem;
+}
+
+aside h2 {
+	font-size: 1.2rem;
+}
+
+aside input {
+	display: block;
+	margin: 1rem 0;
+	padding: 0.2rem;
+}
+
+aside button {
+	width: 100%;
+	height: auto;
+	padding: 0.2rem;
+	font-size: 0.8rem;
+	border-radius: 0.2rem;
+	border: none;
+	color: rgb(39, 39, 39);
+	background-color: rgb(166, 166, 168);
+}
+
+#searchLocationButton {
+	color: white;
+	background-color: rgb(125, 175, 236);
+}
+
+aside hr {
+	margin: 1rem 0;
+	background-color: rgb(58, 58, 58);
+}
+
+/*  ===============
+    SECTIONS - Forecasts
+    =============== */
+#mainWeatherSection {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 70%;
+	margin: 1rem;
+}
+
+section {
+	width: 45rem;
+	height: 10rem;
+	padding: 0.5rem;
+}
+
+/*  ===============
+    TODAYS FORECAST 
+    =============== */
+#todaysForecast {
+	border: solid black 0.1rem;
+}
+
+/*  ===============
+    FIVE DAY FORECAST 
+    =============== */
