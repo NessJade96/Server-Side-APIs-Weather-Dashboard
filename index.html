@@ -15,10 +15,12 @@
 		<main>
 			<aside>
 				<h2>Search for a City:</h2>
-				<input type="text" id="userLocationInput" />
-				<button type="button" id="searchLocationButton">Search</button>
+				<form id="inputForm">
+					<input type="text" id="userInputCity" value="Brisbane" />
+					<button type="button" id="searchCityButton">Search</button>
+				</form>
 				<hr />
-				<button id="#previouslySearchedLocations">Austin</button>
+				<div id="cityHistory"> </div>
 			</aside>
 			<div id="mainWeatherSection">
 				<section id="todaysForecast">

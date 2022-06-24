@@ -60,6 +60,11 @@ aside button {
 	background-color: rgb(166, 166, 168);
 }
 
+#styleCityHistoryButton {
+	margin: 0.2rem 0rem;
+	height: 1.5rem;
+}
+
 #searchLocationButton {
 	color: white;
 	background-color: rgb(125, 175, 236);
