@@ -31,3 +31,5 @@ Created repo, set up folders, html skeleton created with linked css and js. Star
 
 Commit 2:
 Created variable names at the top of document - query selectors. Fetched the data from the weather application. User input set to local storage, displays the searched name and also created the search history buttons.
+
+Commit 3:
