@@ -39,3 +39,4 @@ Commit 4:
 create a function called renderHistoryButtons - this now shows the search history on page load and the buttons work to display the correct city.
 
 Commit 5:
+I ran into an issue where the first API call didnt fetch the UV index, I asked my classmates and was told I needed to do another API call to fetch this data. I have displayed the Temperature on the Daily forecast for now.

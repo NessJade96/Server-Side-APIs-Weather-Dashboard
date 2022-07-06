@@ -98,6 +98,10 @@ section {
 	border: solid black 0.1rem;
 }
 
+.dailyCityTemp {
+	font: black;
+}
+
 /*  ===============
     FIVE DAY FORECAST 
     =============== */
