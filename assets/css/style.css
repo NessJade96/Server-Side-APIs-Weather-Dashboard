@@ -60,7 +60,7 @@ aside button {
 	background-color: rgb(166, 166, 168);
 }
 
-#styleCityHistoryButton {
+.cityHistoryButton {
 	margin: 0.2rem 0rem;
 	height: 1.5rem;
 }

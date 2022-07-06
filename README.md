@@ -33,3 +33,9 @@ Commit 2:
 Created variable names at the top of document - query selectors. Fetched the data from the weather application. User input set to local storage, displays the searched name and also created the search history buttons.
 
 Commit 3:
+Created the function the store the history of the city names to local storage - doesnt duplicate or anything. Just need to move these outside into smaller functions so it can be called on page load as well.
+
+Commit 4:
+create a function called renderHistoryButtons - this now shows the search history on page load and the buttons work to display the correct city.
+
+Commit 5:

@@ -1,11 +1,40 @@
-var cityNameEl = document.querySelector("#cityName");
-var searchCityButton = document.querySelector("#searchCityButton");
+const searchCityButton = document.querySelector("#searchCityButton");
+
+//This function will load the cities on page load, and also again when the search button is selected.
+function renderHistoryButtons() {
+	cityNameStored = JSON.parse(localStorage.getItem("cityName"));
+	if (cityNameStored === null) {
+		cityNameStored = [];
+	}
+	const cityHistory = document.querySelector("#cityHistory");
+	cityHistory.innerHTML = "";
+	cityNameStored.forEach((cityName, index) => {
+		if (cityName != "") {
+			const cityHistoryButton = document.createElement("button");
+			cityHistoryButton.classList.add("cityHistoryButton");
+			cityHistoryButton.innerHTML += cityName;
+			cityHistory.append(cityHistoryButton);
+		}
+	});
+
+	//click Handler on the cities in the user history to reload that cities weather.
+	const historyButtons = document.querySelectorAll(".cityHistoryButton");
+
+	for (let i = 0; i < historyButtons.length; i++) {
+		const self = historyButtons[i];
+		self.addEventListener("click", function (event) {
+			const eventTarget = event.target.textContent;
+			console.log(eventTarget);
+			getRepoCity(eventTarget);
+		});
+	}
+}
 
 //click event on the submit button to store the user input city into the variable with local storage
 searchCityButton.addEventListener("click", function (event) {
 	event.preventDefault();
-	var userInputCity = document.querySelector("#userInputCity");
-	var cityName = userInputCity.value.trim();
+	const userInputCity = document.querySelector("#userInputCity");
+	const cityName = userInputCity.value.trim();
 	if (cityName) {
 		getRepoCity(cityName);
 		userInputCity.value = "";
@@ -14,9 +43,10 @@ searchCityButton.addEventListener("click", function (event) {
 	}
 });
 
-var getRepoCity = function (city) {
-	var APIKey = "72975f24ac4c0c243b3f07fc0db630e0";
-	var queryURL =
+const getRepoCity = function (city) {
+	console.log("🚀 ~ file: script.js ~ line 38 ~ getRepoCity ~ city", city);
+	const APIKey = "72975f24ac4c0c243b3f07fc0db630e0";
+	const queryURL =
 		"http://api.openweathermap.org/data/2.5/weather?q=" +
 		city +
 		"&appid=" +
@@ -25,40 +55,22 @@ var getRepoCity = function (city) {
 	fetch(queryURL).then(function (response) {
 		if (response.ok) {
 			response.json().then(function (cityName) {
-				console.log(cityName.name);
-				var cityNameStored;
+				let cityNameStored;
 				cityName = cityName.name;
+				cityNameStored = JSON.parse(localStorage.getItem("cityName"));
 				if (cityNameStored === null) {
 					cityNameStored = [];
-					console.log("im empty");
 				}
-				cityNameStored = JSON.parse(localStorage.getItem("cityName"));
-				console.log(cityNameStored);
-				cityNameStored.push(cityName);
-				cityNameStored = cityNameStored.filter(function (i) {
-					if (!this[i]) {
-						this[i] = 1;
-						return i;
-					}
-				}, {});
+
+				if (!cityNameStored.includes(cityName)) {
+					cityNameStored.push(cityName);
+				}
+
 				localStorage.setItem(
 					"cityName",
 					JSON.stringify(cityNameStored)
 				);
-				console.log(cityNameStored);
-				var cityHistory = document.querySelector("#cityHistory");
-				cityHistory.innerHTML = "";
-				cityNameStored.forEach((cityName, index) => {
-					if (cityName != "") {
-						cityNameEl.innerHTML = cityName;
-						var cityHistoryButton = document.createElement("p");
-						cityHistoryButton.innerHTML +=
-							"<button class='cityHistoryButton' id='styleCityHistoryButton'>" +
-							cityNameEl.textContent +
-							"</button>";
-						cityHistory.append(cityHistoryButton);
-					}
-				});
+				renderHistoryButtons();
 				displayWeather(cityName); //Create a function that will display the 5 day forecast in cards.
 			});
 		} else {
@@ -67,7 +79,18 @@ var getRepoCity = function (city) {
 	});
 };
 
-var displayWeather = function (cityName) {
+const displayWeather = (cityName) => {
+	const cityNameEl = document.querySelector("#cityName");
 	console.log(cityName);
 	console.log("displayWeatherFunctionWorking"); //function that will display the 5 day forecast in cards. Only consol logs atm
+	cityNameEl.innerHTML = cityName;
 };
+
+// function emptyWeather() {
+// 	cityNameEl.textContent = "CITY";
+// }
+
+//On Page load these functions:
+renderHistoryButtons();
+
+// emptyWeather();
