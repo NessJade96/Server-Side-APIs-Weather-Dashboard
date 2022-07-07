@@ -17,7 +17,7 @@ refer to this website for notes 2-4: https://coding-boot-camp.github.io/full-sta
 
 # Screenshots:
 
-![Screenshot1](./assets/images-movies/Screenshot%202022-06-06%20150222.jpg)
+![Finished product](./assets/images/FinalProduct.PNG)
 
 # Links:
 
@@ -49,3 +49,6 @@ Downloaded a fontawesome kit, linked the style sheet and added in the icons for 
 
 Commit 8:
 Created stlying for the 5-day forecast cards, added a forloop to loop through the 5-day forecast dates using moment.js and render those. All thats left is the rest of the weather information on the cards :)
+
+Commit 9:
+Added into the forloop the 5-day weather temp, humidity, wind etc. Also got the icons working :)
