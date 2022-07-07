@@ -98,6 +98,11 @@ section {
 	border: solid black 0.1rem;
 }
 
+#todaysForecast h2,
+#todaysForecast p {
+	padding: 5px;
+}
+
 .dailyCityTemp {
 	font: black;
 }

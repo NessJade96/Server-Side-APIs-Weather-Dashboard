@@ -12,7 +12,7 @@ function renderHistoryButtons() {
 		if (cityName != "") {
 			const cityHistoryButton = document.createElement("button");
 			cityHistoryButton.classList.add("cityHistoryButton");
-			cityHistoryButton.innerHTML += cityName;
+			cityHistoryButton.innerHTML += `${cityName}`;
 			cityHistory.append(cityHistoryButton);
 		}
 	});
@@ -79,11 +79,10 @@ const getRepoCity = function (city) {
 };
 
 //Function below does a second API call with the recieved Lat and Lon from the first call. This brings back all of the information required to display the daily forecast.
+const cityNameEl = document.querySelector("#cityName");
 const fetchWeather = (cityName, cityLat, cityLon) => {
-	const cityNameEl = document.querySelector("#cityName");
-	console.log(cityName);
-	console.log(cityLat, cityLon);
-	cityNameEl.innerHTML = cityName;
+	const todaysDate = moment().format("(DD/MM/YYYY)");
+	cityNameEl.innerHTML = `${cityName} ${todaysDate}`;
 
 	const APIKey = "72975f24ac4c0c243b3f07fc0db630e0";
 	const queryURL =
@@ -97,21 +96,43 @@ const fetchWeather = (cityName, cityLat, cityLon) => {
 		if (response.ok) {
 			response.json().then(function (weather) {
 				const cityTemp = weather.current.temp;
-				displayWeather(cityTemp);
+				const cityWind = weather.current.wind_speed;
+				const cityHumidity = weather.current.humidity;
+				const cityUVI = weather.current.uvi;
+				const weatherIcon = weather.current.weather[0].main;
+				displayWeather(
+					cityTemp,
+					cityWind,
+					cityHumidity,
+					cityUVI,
+					weatherIcon
+				);
 			});
 		}
 	});
 };
 
-//This is called after the second API call and it renders the weather onto the TodaysForecast section.
-function displayWeather(cityTemp) {
-	console.log("hey");
-	console.log(cityTemp);
+///WORKING HERE -> You just got the Temperature displaying on the daily forecast. Now if complete the rest of the requests on wind etc.
+
+//This is called after the second API call and it renders the weather into the TodaysForecast section.
+function displayWeather(
+	cityTemp,
+	cityWind,
+	cityHumidity,
+	cityUVI,
+	weatherIcon
+) {
 	const todaysForecastTemp = document.querySelector("#todaysForecast");
 	let dailyCityTemp = document.querySelector("#dailyCityTemp");
+	let dailyCityWind = document.querySelector("#dailyCityWind");
+	let dailyCityHumidity = document.querySelector("#dailyCityHumidity");
+	let dailyCityUVI = document.querySelector("#dailyCityUVI");
+	const todaysDate = moment().format("YYYY-MM-DD");
+	cityNameEl.innerHTML += `${weatherIcon}`;
 	dailyCityTemp.innerHTML = `Temp: ${cityTemp}°C`;
-	console.log(dailyCityTemp);
-	todaysForecastTemp.append(dailyCityTemp);
+	dailyCityWind.innerHTML = `Wind: ${cityWind}km/h`;
+	dailyCityHumidity.innerHTML = `Humidity: ${cityHumidity}%`;
+	dailyCityUVI.innerHTML = `UV Index: ${cityUVI}`;
 }
 
 //On Page load these functions:
