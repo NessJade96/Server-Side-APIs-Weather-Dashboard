@@ -100,17 +100,19 @@ const fetchWeather = (cityName, cityLat, cityLon) => {
 				const cityHumidity = weather.current.humidity;
 				const cityUVI = weather.current.uvi;
 				const weatherIcon = weather.current.weather[0].main;
-				renderWeatherIcon(weatherIcon);
+				const weatherResponse = weather;
+
+				renderDailyWeatherIcon(weatherIcon);
 				displayDailyWeather(cityTemp, cityWind, cityHumidity, cityUVI);
 				renderUVIColor(cityUVI);
-				displayFiveDayForecast();
+				displayFiveDayForecast(weatherResponse);
 			});
 		}
 	});
 };
 
 //This will loop through each of the 5 days to render the weather.
-function displayFiveDayForecast() {
+function displayFiveDayForecast(weatherResponse) {
 	const fivedayforecast = document.querySelectorAll(".fivedayforecast");
 	for (let i = 0; i < fivedayforecast.length; i++) {
 		const fetchDate = moment().add(i + 1, "days");
@@ -118,11 +120,59 @@ function displayFiveDayForecast() {
 		console.log(renderDate);
 		fivedayforecast[i].classList.add("boxFiveDay", "bold");
 		fivedayforecast[i].innerHTML = `${renderDate}`;
+
+		//this renders the weather icon
+		const fiveDayWeatherIcon = weatherResponse.daily[i].weather[0].main;
+		const FDweatherIcon = document.querySelector(".FDweatherIcon");
+		const textFDWeatherIcon = document.createElement("p");
+		textFDWeatherIcon.classList.add("fDWeatherDetails", "FDweatherIcon");
+
+		if (fiveDayWeatherIcon === "Clouds") {
+			textFDWeatherIcon.innerHTML += "<i class='fa-solid fa-cloud'></i>";
+		} else if (fiveDayWeatherIcon === "Clear") {
+			textFDWeatherIcon.innerHTML += "<i class='fa-regular fa-sun'></i>";
+		} else if (fiveDayWeatherIcon === "Raining") {
+			textFDWeatherIcon.innerHTML +=
+				"<i class='fa-regular fa-cloud-rain'></i>";
+		} else if (fiveDayWeatherIcon === "Storming") {
+			textFDWeatherIcon.innerHTML +=
+				"<i class='fa-regular fa-cloud-bolt'></i>";
+		}
+		fivedayforecast[i].append(textFDWeatherIcon);
+
+		//renders the Temp
+		const fiveDayTemp = weatherResponse.daily[i].temp.day;
+		const renderFDTemp = document.createElement("p");
+		renderFDTemp.classList.add("fDWeatherDetails");
+		renderFDTemp.innerHTML += `Temp: ${fiveDayTemp}°C`;
+		fivedayforecast[i].append(renderFDTemp);
+
+		//renders the Wind
+		const fiveDayWind = weatherResponse.daily[i].wind_speed;
+		const renderFDWind = document.createElement("p");
+		renderFDWind.classList.add("fDWeatherDetails");
+		renderFDWind.innerHTML += `Wind: ${fiveDayWind}km/h`;
+		fivedayforecast[i].append(renderFDWind);
+
+		//renders the Humidity
+		const fiveDayHumidity = weatherResponse.daily[i].humidity;
+		const renderFDHumidity = document.createElement("p");
+		renderFDHumidity.classList.add("fDWeatherDetails");
+		renderFDHumidity.innerHTML += `Humidity: ${fiveDayHumidity}%`;
+		fivedayforecast[i].append(renderFDHumidity);
 	}
+	// renderFDWeatherIcon(weatherResponse);
 }
 
 //This function shows the weather icons: Clouds, Clear, etc.
-function renderWeatherIcon(weatherIcon) {
+// function renderFDWeatherIcon(weatherResponse) {
+
+// 	return;
+// }
+
+//This function shows the weather icons: Clouds, Clear, etc.
+function renderDailyWeatherIcon(weatherIcon) {
+	console.log("ehey");
 	if (weatherIcon === "Clouds") {
 		cityNameEl.innerHTML += "<i class='fa-solid fa-cloud'></i>";
 	} else if (weatherIcon === "Clear") {

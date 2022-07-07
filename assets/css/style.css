@@ -145,3 +145,8 @@ section {
 .bold {
 	font-weight: bold;
 }
+
+.fDWeatherDetails {
+	font-weight: 100;
+	padding-top: 1rem;
+}
