@@ -101,12 +101,25 @@ const fetchWeather = (cityName, cityLat, cityLon) => {
 				const cityUVI = weather.current.uvi;
 				const weatherIcon = weather.current.weather[0].main;
 				renderWeatherIcon(weatherIcon);
-				displayWeather(cityTemp, cityWind, cityHumidity, cityUVI);
+				displayDailyWeather(cityTemp, cityWind, cityHumidity, cityUVI);
 				renderUVIColor(cityUVI);
+				displayFiveDayForecast();
 			});
 		}
 	});
 };
+
+//This will loop through each of the 5 days to render the weather.
+function displayFiveDayForecast() {
+	const fivedayforecast = document.querySelectorAll(".fivedayforecast");
+	for (let i = 0; i < fivedayforecast.length; i++) {
+		const fetchDate = moment().add(i + 1, "days");
+		const renderDate = fetchDate.format("DD-MM-YYYY");
+		console.log(renderDate);
+		fivedayforecast[i].classList.add("boxFiveDay", "bold");
+		fivedayforecast[i].innerHTML = `${renderDate}`;
+	}
+}
 
 //This function shows the weather icons: Clouds, Clear, etc.
 function renderWeatherIcon(weatherIcon) {
@@ -119,12 +132,10 @@ function renderWeatherIcon(weatherIcon) {
 	} else if (weatherIcon === "Storming") {
 		cityNameEl.innerHTML += "<i class='fa-regular fa-cloud-bolt'></i>";
 	}
-	console.log(weatherIcon);
 }
 
 //This will show the UV levels
 function renderUVIColor(cityUVI) {
-	console.log("uv index working");
 	const UVIndex = document.getElementById("UVIndex");
 	if (cityUVI < 5) {
 		UVIndex.classList.add("UVImoderate");
@@ -136,7 +147,7 @@ function renderUVIColor(cityUVI) {
 }
 
 //This is called after the second API call and it renders the weather into the TodaysForecast section.
-function displayWeather(cityTemp, cityWind, cityHumidity, cityUVI) {
+function displayDailyWeather(cityTemp, cityWind, cityHumidity, cityUVI) {
 	const todaysForecastTemp = document.querySelector("#todaysForecast");
 	let dailyCityTemp = document.querySelector("#dailyCityTemp");
 	let dailyCityWind = document.querySelector("#dailyCityWind");

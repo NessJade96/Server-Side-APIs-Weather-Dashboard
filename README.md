@@ -43,3 +43,9 @@ I ran into an issue where the first API call didnt fetch the UV index, I asked m
 
 Commit 6:
 The daily forecast is mostly done. Just need to do the UVI color box and the _sun_, _clouds_, etc. Icons. Will have to come back to this later.
+
+Commit 7:
+Downloaded a fontawesome kit, linked the style sheet and added in the icons for the weather. I also created CSS classes for the UVindex colored boxes.
+
+Commit 8:
+Created stlying for the 5-day forecast cards, added a forloop to loop through the 5-day forecast dates using moment.js and render those. All thats left is the rest of the weather information on the cards :)

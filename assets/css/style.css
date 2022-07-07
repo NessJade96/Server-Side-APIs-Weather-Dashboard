@@ -131,3 +131,17 @@ section {
 /*  ===============
     FIVE DAY FORECAST 
     =============== */
+
+.boxFiveDay {
+	background-color: rgb(30, 42, 96);
+	color: white;
+	width: 8rem;
+	height: 10rem;
+	margin: 0.2rem;
+	display: inline-block;
+	padding: 0.2rem;
+}
+
+.bold {
+	font-weight: bold;
+}
