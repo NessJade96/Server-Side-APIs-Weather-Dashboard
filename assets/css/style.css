@@ -107,6 +107,27 @@ section {
 	font: black;
 }
 
+.UVImoderate {
+	background-color: green;
+	border-radius: 10%;
+	color: white;
+	display: inline;
+}
+
+.UVIHigh {
+	background-color: rgb(209, 186, 38);
+	border-radius: 10%;
+	color: white;
+	display: inline;
+}
+
+.UVIVeryHigh {
+	background-color: rgb(211, 65, 36);
+	border-radius: 10%;
+	color: white;
+	display: inline;
+}
+
 /*  ===============
     FIVE DAY FORECAST 
     =============== */

@@ -100,39 +100,53 @@ const fetchWeather = (cityName, cityLat, cityLon) => {
 				const cityHumidity = weather.current.humidity;
 				const cityUVI = weather.current.uvi;
 				const weatherIcon = weather.current.weather[0].main;
-				displayWeather(
-					cityTemp,
-					cityWind,
-					cityHumidity,
-					cityUVI,
-					weatherIcon
-				);
+				renderWeatherIcon(weatherIcon);
+				displayWeather(cityTemp, cityWind, cityHumidity, cityUVI);
+				renderUVIColor(cityUVI);
 			});
 		}
 	});
 };
 
-///WORKING HERE -> You just got the Temperature displaying on the daily forecast. Now if complete the rest of the requests on wind etc.
+//This function shows the weather icons: Clouds, Clear, etc.
+function renderWeatherIcon(weatherIcon) {
+	if (weatherIcon === "Clouds") {
+		cityNameEl.innerHTML += "<i class='fa-solid fa-cloud'></i>";
+	} else if (weatherIcon === "Clear") {
+		cityNameEl.innerHTML += "<i class='fa-regular fa-sun'></i>";
+	} else if (weatherIcon === "Raining") {
+		cityNameEl.innerHTML += "<i class='fa-regular fa-cloud-rain'></i>";
+	} else if (weatherIcon === "Storming") {
+		cityNameEl.innerHTML += "<i class='fa-regular fa-cloud-bolt'></i>";
+	}
+	console.log(weatherIcon);
+}
+
+//This will show the UV levels
+function renderUVIColor(cityUVI) {
+	console.log("uv index working");
+	const UVIndex = document.getElementById("UVIndex");
+	if (cityUVI < 5) {
+		UVIndex.classList.add("UVImoderate");
+	} else if (cityUVI < 7) {
+		UVIndex.classList.add("UVIHigh");
+	} else if (cityUVI < 10) {
+		UVIndex.classList.add("UVIVeryHigh");
+	}
+}
 
 //This is called after the second API call and it renders the weather into the TodaysForecast section.
-function displayWeather(
-	cityTemp,
-	cityWind,
-	cityHumidity,
-	cityUVI,
-	weatherIcon
-) {
+function displayWeather(cityTemp, cityWind, cityHumidity, cityUVI) {
 	const todaysForecastTemp = document.querySelector("#todaysForecast");
 	let dailyCityTemp = document.querySelector("#dailyCityTemp");
 	let dailyCityWind = document.querySelector("#dailyCityWind");
 	let dailyCityHumidity = document.querySelector("#dailyCityHumidity");
 	let dailyCityUVI = document.querySelector("#dailyCityUVI");
-	const todaysDate = moment().format("YYYY-MM-DD");
-	cityNameEl.innerHTML += `${weatherIcon}`;
+	const todaysDate = moment().format("YYYY-MM-DD ");
 	dailyCityTemp.innerHTML = `Temp: ${cityTemp}°C`;
 	dailyCityWind.innerHTML = `Wind: ${cityWind}km/h`;
 	dailyCityHumidity.innerHTML = `Humidity: ${cityHumidity}%`;
-	dailyCityUVI.innerHTML = `UV Index: ${cityUVI}`;
+	dailyCityUVI.innerHTML = `UV Index: <p id='UVIndex'> ${cityUVI} </p>`;
 }
 
 //On Page load these functions:
