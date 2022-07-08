@@ -46,7 +46,7 @@ searchCityButton.addEventListener("click", function (event) {
 const getRepoCity = function (city) {
 	const APIKey = "72975f24ac4c0c243b3f07fc0db630e0";
 	const queryURL =
-		"http://api.openweathermap.org/data/2.5/weather?q=" +
+		"https://api.openweathermap.org/data/2.5/weather?q=" +
 		city +
 		"&appid=" +
 		APIKey;
