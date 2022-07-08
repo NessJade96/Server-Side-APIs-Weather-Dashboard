@@ -1,5 +1,3 @@
-const searchCityButton = document.querySelector("#searchCityButton");
-
 //This function will load the cities on page load, and also again when the search button is selected.
 function renderHistoryButtons() {
 	cityNameStored = JSON.parse(localStorage.getItem("cityName"));
@@ -8,7 +6,7 @@ function renderHistoryButtons() {
 	}
 	const cityHistory = document.querySelector("#cityHistory");
 	cityHistory.innerHTML = "";
-	cityNameStored.forEach((cityName, index) => {
+	cityNameStored.forEach((cityName) => {
 		if (cityName != "") {
 			const cityHistoryButton = document.createElement("button");
 			cityHistoryButton.classList.add("cityHistoryButton");
@@ -30,6 +28,8 @@ function renderHistoryButtons() {
 }
 
 //click event on the submit button to store the user input city into the variable with local storage
+const searchCityButton = document.querySelector("#searchCityButton");
+
 searchCityButton.addEventListener("click", function (event) {
 	event.preventDefault();
 	const userInputCity = document.querySelector("#userInputCity");
@@ -72,7 +72,7 @@ const getRepoCity = function (city) {
 					JSON.stringify(cityNameStored)
 				);
 				renderHistoryButtons();
-				fetchWeather(cityName, cityLat, cityLon); //Create a function that will display the 5 day forecast in cards.
+				fetchWeather(cityName, cityLat, cityLon);
 			});
 		}
 	});
@@ -102,6 +102,7 @@ const fetchWeather = (cityName, cityLat, cityLon) => {
 				const weatherIcon = weather.current.weather[0].main;
 				const weatherResponse = weather;
 
+				//the data is then input into these functions:
 				renderDailyWeatherIcon(weatherIcon);
 				displayDailyWeather(cityTemp, cityWind, cityHumidity, cityUVI);
 				renderUVIColor(cityUVI);
@@ -117,7 +118,6 @@ function displayFiveDayForecast(weatherResponse) {
 	for (let i = 0; i < fivedayforecast.length; i++) {
 		const fetchDate = moment().add(i + 1, "days");
 		const renderDate = fetchDate.format("DD-MM-YYYY");
-		console.log(renderDate);
 		fivedayforecast[i].classList.add("boxFiveDay", "bold");
 		fivedayforecast[i].innerHTML = `${renderDate}`;
 
@@ -127,13 +127,14 @@ function displayFiveDayForecast(weatherResponse) {
 		const textFDWeatherIcon = document.createElement("p");
 		textFDWeatherIcon.classList.add("fDWeatherDetails", "FDweatherIcon");
 
+		//This if statement shows the weather icons: Clouds, Clear, etc.
 		if (fiveDayWeatherIcon === "Clouds") {
 			textFDWeatherIcon.innerHTML += "<i class='fa-solid fa-cloud'></i>";
 		} else if (fiveDayWeatherIcon === "Clear") {
 			textFDWeatherIcon.innerHTML += "<i class='fa-regular fa-sun'></i>";
-		} else if (fiveDayWeatherIcon === "Raining") {
+		} else if (fiveDayWeatherIcon === "Rain") {
 			textFDWeatherIcon.innerHTML +=
-				"<i class='fa-regular fa-cloud-rain'></i>";
+				"<i class='fa-solid fa-cloud-rain'></i>";
 		} else if (fiveDayWeatherIcon === "Storming") {
 			textFDWeatherIcon.innerHTML +=
 				"<i class='fa-regular fa-cloud-bolt'></i>";
@@ -161,24 +162,16 @@ function displayFiveDayForecast(weatherResponse) {
 		renderFDHumidity.innerHTML += `Humidity: ${fiveDayHumidity}%`;
 		fivedayforecast[i].append(renderFDHumidity);
 	}
-	// renderFDWeatherIcon(weatherResponse);
 }
 
-//This function shows the weather icons: Clouds, Clear, etc.
-// function renderFDWeatherIcon(weatherResponse) {
-
-// 	return;
-// }
-
-//This function shows the weather icons: Clouds, Clear, etc.
+//This function shows the weather icons: Clouds, Clear, etc. for the daily weather
 function renderDailyWeatherIcon(weatherIcon) {
-	console.log("ehey");
 	if (weatherIcon === "Clouds") {
 		cityNameEl.innerHTML += "<i class='fa-solid fa-cloud'></i>";
 	} else if (weatherIcon === "Clear") {
 		cityNameEl.innerHTML += "<i class='fa-regular fa-sun'></i>";
-	} else if (weatherIcon === "Raining") {
-		cityNameEl.innerHTML += "<i class='fa-regular fa-cloud-rain'></i>";
+	} else if (weatherIcon === "Rain") {
+		cityNameEl.innerHTML += "<i class='fa-solid fa-cloud-rain'></i>";
 	} else if (weatherIcon === "Storming") {
 		cityNameEl.innerHTML += "<i class='fa-regular fa-cloud-bolt'></i>";
 	}
