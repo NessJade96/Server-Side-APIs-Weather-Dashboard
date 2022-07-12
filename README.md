@@ -1,8 +1,3 @@
-[Custom foo description](#foo)
-[Custom foo description](#description)
-
-# Foo
-
 # Server-Side-APIs-Weather-Dashboard
 
 # Description
